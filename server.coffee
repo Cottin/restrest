@@ -8,7 +8,11 @@ morgan = require('morgan')
 
 serverHelpers = require './helpers/serverHelpers'
 router = require './router'
-config = require './config'
+
+try
+	config = require './config'
+catch error
+	console.log './config does not exist, normal for heroku but if you are running localy you might want to create it'
 
 mongo_uri = process.env.MONGOLAB_URI || config.mongo_uri
 
