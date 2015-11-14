@@ -1,0 +1,116 @@
+<html>
+<head>
+	<title>Restaurant Reviwer 3.0</title>
+	<style>
+		html {
+			background: #EDEDE5;
+			color: #484848;
+			margin: 0;
+			font-family: Times New Roman, Helvetica Neue, Helvetica, Arial, sans-serif;
+			font-size: 0.9em;
+		}
+		table td {
+			padding: 2px 15px;
+		}
+		li {
+			padding: 5px 0px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Restaurant Reviewer 3.0</h1>
+
+	<p>
+		You are going to build the frontend for Restaurant Reviewer 3.0. We have a REST-api in place at this very url and you'll find instructions for how to access it at the end.
+	</p>
+
+	<h2>Requirements</h2>
+	<ol>
+		<li>
+			The app must be built using react.js. (If you are familiar with react, great! If not, don't worry, we'll keep this in mind when looking at your code)
+		</li>
+		<li>
+			There shall be a list of restaurants including any information you feel appropriate but there must be an <em><strong>average rating</strong></em> shown for each restaurant.
+		</li>
+		<li>
+			The user shall be able to click a restaurant and see details about it. The caviat is that the restaurant list must at the same time still be visible, ie. the user will see both the restaurant list and the details about the restaurant (s)he clicked.
+		</li>
+		<li>
+			Included in the details about the restaurant described above, there shall be a list of all reviews for the restaurant.
+		</li>
+		<li>
+			In the details-area described above the user shall be able to create a review or edit and delete his/her review to any restaurant. (To simplify things, we are assuming that the logged in user is 'Malin' _id: 1). You must use the create, update and delete endpoints documented below.
+		</li>
+		<li>
+			Since both the list of restaurants and the details-view of the clicked restaurant shall be visible at the same time, we expect the entire UI to be updated when changes happen. ie. When a review is created, updated or deleted, the restaurant in the list should probably have it's average changed.
+		</li>
+	</ol>
+
+	<p>
+		These requirements might feel a bit contrived but we want you to show that you can handle asynchronous programming and build a not too trivial UI where changes in one part of the screen will also affect other parts.
+	</p>
+
+	<p>
+		It would probably be best to focus on the basic requirements first but if you feel like you have time, feel free to do any nice "extras" you want. For instance, if you've worked with react before, maybe you have a favorite framework/library to handle data-flow. If you've worked with design/ux/styling and have time, maybe you can even make the application look and feel nice when using it :)
+	</p>
+
+	<h2>Instructions</h2>
+
+	<p>
+		To get started you must choose a somewhat unique name and reset your data. This is done by entering http://aaaaaaa.aaaa.com/your-unique-name/reset. After this is done you will be able to get a list of restaurants from http://aaaaaaa.aaaa.com/your-unique-name/restaurant.
+	</p>
+
+	<h2>API documentation</h2>
+
+	<p>
+		The api is set up to send CORS-headers so you should be able to access it from your application when running it on localhost or similar.
+	</p>
+
+	<p>
+		Note: the following urls needs to be prefixed with your-unique-name.
+	</p>
+
+	<table>
+		<tr>
+			<td>GET</td>
+			<td>/restaurant</td>
+			<td>returns a list of all restaurants</td>
+		</tr>
+		<tr>
+			<td>GET</td>
+			<td>/user</td>
+			<td>returns a list of all users</td>
+		</tr>
+		<tr>
+			<td>GET</td>
+			<td>/review</td>
+			<td>returns a list of all review</td>
+		</tr>
+		<tr>
+			<td>POST</td>
+			<td>/review</td>
+			<td>creates a new review and returns the newly created object with it's new _id or an error message</td>
+		</tr>
+		<tr>
+			<td>PUT</td>
+			<td>/review/:id</td>
+			<td>updates the speficied review</td>
+		</tr>
+		<tr>
+			<td>DELETE</td>
+			<td>/review/:id</td>
+			<td>deletes the speficied review</td>
+		</tr>
+	</table>
+	<p>
+		...and always remember that you can reset your data to the initial data set
+		that you started with at any time with a GET-request to /your-unique-name/reset.
+	</p>
+	<p>
+		<strong>Good luck in building Restaurant Reviewer 3.0!!</strong>
+		<br/>
+		If you have any questions during the assignment, don't hesitate to ask us :)
+	</p>
+</body>
+</html>
+
