@@ -28,9 +28,9 @@ logResponseBody = (req, res, next) ->
 	res.end = (chunk) ->
 		if chunk
 			chunks.push chunk
-		if length(chunks) == 0 then return
-		body = Buffer.concat(chunks).toString('utf8')
-		console.log "RESPONSE BODY: ", body
+		if length(chunks) > 0
+			body = Buffer.concat(chunks).toString('utf8')
+			console.log "RESPONSE BODY: ", body
 		oldEnd.apply res, arguments
 		return
 
