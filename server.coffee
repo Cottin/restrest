@@ -1,4 +1,5 @@
 express = require 'express'
+favicon = require 'express-favicon'
 bodyParser = require 'body-parser'
 Table = require('cli-table')
 morgan = require('morgan')
@@ -37,6 +38,8 @@ app.use serverHelpers.logResponseBody
 # ROUTES
 # ------------------------------------------------------------------------------------------------------
 app.get '/', (req, res) -> res.sendFile(__dirname + '/index.html')
+app.use favicon(__dirname + '/public/favicon.ico')
+
 server = app.listen app.get('port'), ->
 	host = server.address().address
 	port = server.address().port
