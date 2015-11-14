@@ -67,7 +67,7 @@ mongoOptions =
 
 mongoCallback = (database) ->
 	console.log 'connected to mongo, creating router...'
-	# router app, database
+	router app, database
 	console.log 'router created'
 
 	# ------------------------------------------------------------------------------------------------------
