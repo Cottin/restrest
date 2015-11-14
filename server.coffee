@@ -40,46 +40,46 @@ app.use serverHelpers.logResponseBody
 app.get '/', (req, res) -> res.sendFile(__dirname + '/index.html')
 app.use favicon(__dirname + '/public/favicon.ico')
 
-server = app.listen app.get('port'), ->
-	host = server.address().address
-	port = server.address().port
-	console.log 'Example app listening at http://%s:%s', host, port
+# server = app.listen app.get('port'), ->
+# 	host = server.address().address
+# 	port = server.address().port
+# 	console.log 'Example app listening at http://%s:%s', host, port
 
-# app.get '/routes', (req, res) ->
-# 	table = new Table {head: ['verb', 'path'], colWidths: [10, 70]}
-# 	M = ['route', 'methods']
-# 	P = ['route', 'path']
+app.get '/routes', (req, res) ->
+	table = new Table {head: ['verb', 'path'], colWidths: [10, 70]}
+	M = ['route', 'methods']
+	P = ['route', 'path']
 
-# 	extractVerb = compose head, keys, path(M)
-# 	extractPath = path P
-# 	extractVerbAndPath = (x) -> [extractVerb(x), extractPath(x)]
-# 	notUndefined = (x) -> path(P, x) != undefined
+	extractVerb = compose head, keys, path(M)
+	extractPath = path P
+	extractVerbAndPath = (x) -> [extractVerb(x), extractPath(x)]
+	notUndefined = (x) -> path(P, x) != undefined
 
-# 	result = cc map(extractVerbAndPath), filter(notUndefined), app._router.stack
-# 	table.push result...
-# 	console.log table.toString()
-# 	res.send 'Check your console for printed routing table'
+	result = cc map(extractVerbAndPath), filter(notUndefined), app._router.stack
+	table.push result...
+	console.log table.toString()
+	res.send 'Check your console for printed routing table'
 
-# mongoOptions =
-# 	server:
-# 		auto_reconnect: true
+mongoOptions =
+	server:
+		auto_reconnect: true
 
 
-# mongoCallback = (database) ->
-# 	console.log 'connected to mongo, creating router...'
-# 	# router app, database
-# 	console.log 'router created'
+mongoCallback = (database) ->
+	console.log 'connected to mongo, creating router...'
+	# router app, database
+	console.log 'router created'
 
-# 	# ------------------------------------------------------------------------------------------------------
-# 	# START
-# 	# ------------------------------------------------------------------------------------------------------
-# 	server = app.listen app.get('port'), ->
-# 		host = server.address().address
-# 		port = server.address().port
-# 		console.log 'Example app listening at http://%s:%s', host, port
+	# ------------------------------------------------------------------------------------------------------
+	# START
+	# ------------------------------------------------------------------------------------------------------
+	server = app.listen app.get('port'), ->
+		host = server.address().address
+		port = server.address().port
+		console.log 'Example app listening at http://%s:%s', host, port
 
-# MongoClient.connect(mongo_uri, mongoOptions).then(mongoCallback).catch (err) ->
-# 	console.log 'Fatal error: Failed connecting to mongo', err
+MongoClient.connect(mongo_uri, mongoOptions).then(mongoCallback).catch (err) ->
+	console.log 'Fatal error: Failed connecting to mongo', err
 
 # fråga på stack...
 # mongo = new MongoClient(new Server("localhost", 27017), {native_parser: true});
