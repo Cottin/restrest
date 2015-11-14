@@ -3,8 +3,8 @@ bodyParser = require 'body-parser'
 Table = require('cli-table')
 morgan = require('morgan')
 {compose, filter, head, keys, map, path} = require 'ramda' # auto_require:ramda
-# {cc} = require 'ramda-extras'
-{MongoClient, Server, MongoClient, ObjectID}  = require 'mongodb'
+{cc} = require 'ramda-extras'
+{MongoClient}  = require 'mongodb'
 
 serverHelpers = require './helpers/serverHelpers'
 router = require './router'
@@ -38,35 +38,30 @@ app.use serverHelpers.logResponseBody
 # ------------------------------------------------------------------------------------------------------
 app.get '/', (req, res) -> res.sendFile(__dirname + '/index.html')
 
-# app.get '/routes', (req, res) ->
-# 	table = new Table {head: ['verb', 'path'], colWidths: [10, 70]}
-# 	M = ['route', 'methods']
-# 	P = ['route', 'path']
+app.get '/routes', (req, res) ->
+	table = new Table {head: ['verb', 'path'], colWidths: [10, 70]}
+	M = ['route', 'methods']
+	P = ['route', 'path']
 
-# 	extractVerb = compose head, keys, path(M)
-# 	extractPath = path P
-# 	extractVerbAndPath = (x) -> [extractVerb(x), extractPath(x)]
-# 	notUndefined = (x) -> path(P, x) != undefined
+	extractVerb = compose head, keys, path(M)
+	extractPath = path P
+	extractVerbAndPath = (x) -> [extractVerb(x), extractPath(x)]
+	notUndefined = (x) -> path(P, x) != undefined
 
-# 	result = cc map(extractVerbAndPath), filter(notUndefined), app._router.stack
-# 	table.push result...
-# 	console.log table.toString()
-# 	res.send 'Check your console for printed routing table'
+	result = cc map(extractVerbAndPath), filter(notUndefined), app._router.stack
+	table.push result...
+	console.log table.toString()
+	res.send 'Check your console for printed routing table'
 
 mongoOptions =
 	server:
 		auto_reconnect: true
 
-# server = app.listen app.get('port'), ->
-# 	host = server.address().address
-# 	port = server.address().port
-# 	console.log 'Example app listening at http://%s:%s', host, port
 
 mongoCallback = (database) ->
-	# console.log 'connected to mongo, creating router...'
-	# router app, database
-	# console.log 'router created'
-	console.log 'database', database
+	console.log 'connected to mongo, creating router...'
+	router app, database
+	console.log 'router created'
 
 	# ------------------------------------------------------------------------------------------------------
 	# START
