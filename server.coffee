@@ -8,8 +8,9 @@ morgan = require('morgan')
 
 serverHelpers = require './helpers/serverHelpers'
 router = require './router'
+config = require './config'
 
-mongoUrl = 'mongodb://localhost:27017'
+mongo_uri = process.env.MONGOLAB_URI || config.mongo_uri
 
 # ------------------------------------------------------------------------------------------------------
 # MIDDLEWARE
@@ -32,10 +33,6 @@ app.use serverHelpers.logResponseBody
 # ROUTES
 # ------------------------------------------------------------------------------------------------------
 app.get '/', (req, res) -> res.sendFile(__dirname + '/index.html')
-server = app.listen app.get('port'), ->
-	host = server.address().address
-	port = server.address().port
-	console.log 'Example app listening at http://%s:%s', host, port
 
 # app.get '/routes', (req, res) ->
 # 	table = new Table {head: ['verb', 'path'], colWidths: [10, 70]}
@@ -52,25 +49,31 @@ server = app.listen app.get('port'), ->
 # 	console.log table.toString()
 # 	res.send 'Check your console for printed routing table'
 
-# mongoOptions =
-# 	server:
-# 		auto_reconnect: true
+mongoOptions =
+	server:
+		auto_reconnect: true
 
-# mongoCallback = (database) ->
-# 	console.log 'connected to mongo, creating router...'
-# 	router app, database
-# 	console.log 'router created'
+# server = app.listen app.get('port'), ->
+# 	host = server.address().address
+# 	port = server.address().port
+# 	console.log 'Example app listening at http://%s:%s', host, port
 
-# 	# ------------------------------------------------------------------------------------------------------
-# 	# START
-# 	# ------------------------------------------------------------------------------------------------------
-# 	server = app.listen 3812, ->
-# 		host = server.address().address
-# 		port = server.address().port
-# 		console.log 'Example app listening at http://%s:%s', host, port
+mongoCallback = (database) ->
+	# console.log 'connected to mongo, creating router...'
+	# router app, database
+	# console.log 'router created'
+	console.log 'database', database
 
-# MongoClient.connect(mongoUrl, mongoOptions).then(mongoCallback).catch (err) ->
-# 	console.log 'Fatal error: Failed connecting to mongo', err
+	# ------------------------------------------------------------------------------------------------------
+	# START
+	# ------------------------------------------------------------------------------------------------------
+	server = app.listen app.get('port'), ->
+		host = server.address().address
+		port = server.address().port
+		console.log 'Example app listening at http://%s:%s', host, port
+
+MongoClient.connect(mongo_uri, mongoOptions).then(mongoCallback).catch (err) ->
+	console.log 'Fatal error: Failed connecting to mongo', err
 
 # fråga på stack...
 # mongo = new MongoClient(new Server("localhost", 27017), {native_parser: true});
