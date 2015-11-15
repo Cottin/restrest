@@ -1,4 +1,4 @@
-{length} = require 'ramda' # auto_require:ramda
+{} = require 'ramda' # auto_require:ramda
 
 # ------------------------------------------------------------------------------------------------------
 # GENERAL
@@ -28,9 +28,12 @@ logResponseBody = (req, res, next) ->
 	res.end = (chunk) ->
 		if chunk
 			chunks.push chunk
-		if length(chunks) > 0
+		try
 			body = Buffer.concat(chunks).toString('utf8')
 			console.log "RESPONSE BODY: ", body
+		catch error
+			console.log "error when trying to log", error
+			
 		oldEnd.apply res, arguments
 		return
 
